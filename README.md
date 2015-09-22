@@ -14,7 +14,7 @@ Para desenvolver o app você vai precisar usar o endpoint do Twitch https://gith
 * Android 4+
 * Uso de AndroidStudio
 
-# Bonus
+# Bonus (Não é obrigatório, só se você quiser ou tiver tempo)
 
 * Bibliotecas terceiras
 * Pull to refresh
