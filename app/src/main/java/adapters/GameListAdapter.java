@@ -39,7 +39,7 @@ public class GameListAdapter extends BaseAdapter {
         item = new Item(view);
 
         item.imageView.setImageBitmap(items.get(i).getGameImg());
-        item.textView.setText(items.get(i).getGameName());
+        item.textView.setText(items.get(i).game.name);
 
         return view;
     }

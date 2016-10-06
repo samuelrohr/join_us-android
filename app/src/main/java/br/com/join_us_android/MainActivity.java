@@ -3,9 +3,11 @@ package br.com.join_us_android;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.bluelinelabs.logansquare.LoganSquare;
+
 import java.util.List;
 
 import adapters.GameListAdapter;
@@ -16,7 +18,8 @@ public class MainActivity extends AppCompatActivity implements HttpGetRequestHan
 
     private ListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private static final String TOP_GAMES_URL = "https://api.twitch.tv/kraken/games/top";
+    private List<GameInfo> gamesList;
+    private static final String TOP_GAMES_URL = "https://api.twitch.tv/kraken/games/top?limit=50";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements HttpGetRequestHan
 
     private void loadComponents() {
         listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new GameListAdapter(this.getApplicationContext(), mockData()));
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -44,18 +46,27 @@ public class MainActivity extends AppCompatActivity implements HttpGetRequestHan
         httpGetRequestHandler.execute();
     }
 
+    private void refreshListView() {
+        listView.setAdapter(new GameListAdapter(this.getApplicationContext(), gamesList));
+    }
+
     @Override
     public void onHttpGetCompleted(String s) {
         //TODO passar para o parser de JSON e montar os objetos a serem mostrados na lista
         swipeRefreshLayout.setRefreshing(false);
-    }
 
-    //TODO remover
-    private List<GameInfo> mockData() {
-        List<GameInfo> list = new ArrayList<>();
-        list.add(new GameInfo("teste", "nada", 10, 20));
-        list.add(new GameInfo("teste2", "nada1", 120, 2320));
-        list.add(new GameInfo("teste3", "nada2", 130, 220));
-        return list;
+        try {
+            //Removemos o header inutil do JSON
+            String header = "\"top\":";
+            int jsonStart = s.indexOf(header, 0) + header.length();
+            String json = s.substring(jsonStart);
+            json = json.substring(0, json.length() - 2);
+
+            gamesList = LoganSquare.parseList(json, GameInfo.class);
+            refreshListView();
+        } catch(Exception e) {
+            String sa = e.getMessage();
+            Log.e("LoganError", sa);
+        }
     }
 }
