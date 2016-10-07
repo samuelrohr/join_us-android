@@ -1,9 +1,8 @@
-package httpUtil;
+package asyncTaskes;
 
 import android.os.AsyncTask;
 import android.util.Log;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -12,13 +11,13 @@ import java.net.URL;
 /**
  * Created by Rohr on 10/4/2016.
  */
-public class HttpGetRequestHandler extends AsyncTask<String, Void, String> {
+public class TopGamesGetTask extends AsyncTask<String, Void, String> {
 
     private String url = "";
     private HttpGetCompleted listener;
     private static final String CLIENT_ID = "m7d3djff8ihb50r5tykr8zw5g2zijr7";
 
-    public HttpGetRequestHandler(String url, HttpGetCompleted listener) {
+    public TopGamesGetTask(String url, HttpGetCompleted listener) {
         super();
 
         this.url = url;
@@ -65,10 +64,10 @@ public class HttpGetRequestHandler extends AsyncTask<String, Void, String> {
                 return "";
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e("GetGameInfoError", e.getMessage());
         }
-        return null;
+        return "";
     }
 
     public interface HttpGetCompleted {

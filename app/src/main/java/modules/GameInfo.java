@@ -30,4 +30,8 @@ public class GameInfo {
     public Bitmap getGameImg() {
         return gameImg;
     }
+
+    public void setGameImg(Bitmap img) {
+        gameImg = img;
+    }
 }

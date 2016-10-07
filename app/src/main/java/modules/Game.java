@@ -12,7 +12,7 @@ public class Game {
     @JsonField
     public String name;
 
-    @JsonField
+    @JsonField(name = "box")
     public Logo logo;
 
     public  Game() {

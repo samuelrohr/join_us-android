@@ -60,13 +60,13 @@ public class GameListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public GameInfo getItem(int i) {
+        return items.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     private class Item {

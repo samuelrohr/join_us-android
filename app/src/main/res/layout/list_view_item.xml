@@ -4,8 +4,8 @@
     android:layout_height="match_parent" style="@style/AlertDialog.AppCompat.Light">
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView" />
 
     <TextView
@@ -13,5 +13,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp" />
 </LinearLayout>
