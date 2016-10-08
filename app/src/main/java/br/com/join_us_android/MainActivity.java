@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements TopGamesGetTask.H
         getOnlineData();
     }
 
+    /**
+     * Carrega componentes básicos da interface
+     */
     private void loadComponents() {
         listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,7 +84,20 @@ public class MainActivity extends AppCompatActivity implements TopGamesGetTask.H
      * Atualiza a listView
      */
     private void refreshListView() {
-        listView.setAdapter(new GameListAdapter(this.getApplicationContext(), gamesList));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(listView.getAdapter() == null) {
+                    listView.setAdapter(new GameListAdapter(MainActivity.this, gamesList));
+                } else {
+                    GameListAdapter gameListAdapter = (GameListAdapter)listView.getAdapter();
+                    gameListAdapter.items = gamesList;
+                    gameListAdapter.notifyDataSetChanged();
+                }
+
+            }
+        });
+
     }
 
     /**

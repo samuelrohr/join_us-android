@@ -42,6 +42,8 @@ public class GameDetailActivity extends AppCompatActivity {
         byte[] imgBytes = getIntent().getByteArrayExtra("img");
         if(imgBytes != null) {
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length));
+        } else {
+            imageView.setImageResource(R.mipmap.no_internet);
         }
     }
 }

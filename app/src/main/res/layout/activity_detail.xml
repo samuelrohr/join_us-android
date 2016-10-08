@@ -38,7 +38,6 @@
         android:text="Medium Text"
         android:id="@+id/nameTextView"
         android:layout_below="@+id/detailImageView"
-        android:layout_toEndOf="@+id/viewersTextView"
-        android:layout_marginTop="5dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

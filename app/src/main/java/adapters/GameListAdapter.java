@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import modules.GameInfo;
 public class GameListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<GameInfo> items;
+    public List<GameInfo> items;
     private LayoutInflater layoutInflater;
 
     public GameListAdapter(Context context, List<GameInfo> gameInfosList) {
@@ -38,7 +39,12 @@ public class GameListAdapter extends BaseAdapter {
 
         item = new Item(view);
 
-        item.imageView.setImageBitmap(items.get(i).getGameImg());
+        Bitmap img = items.get(i).getGameImg();
+        if(img == null) {
+            item.imageView.setImageResource(R.mipmap.no_internet);
+        } else {
+            item.imageView.setImageBitmap(items.get(i).getGameImg());
+        }
         item.textView.setText(items.get(i).game.name);
 
         return view;
